@@ -53,7 +53,7 @@ class PreserveExtension(Extension):
     def flush():
       nonlocal raw
       nonlocal body
-      node = nodes.TemplateData(''.join(raw))
+      node = nodes.TemplateData(''.join(map(str, raw)))
       body.append(node)
       raw = []
 
@@ -66,10 +66,13 @@ class PreserveExtension(Extension):
       if test:
         raw.pop(-1)
         break
-      # if raw and not raw[-1].endswith('\n'):
-      if t.type in ('name', 'block_end', 'variable_end'):
+
+      if t.type not in ('variable_begin', 'block_begin', 'comma'):
         raw.append(' ')
-      raw.append(t.value)
+      if t.type in ('string',):
+        raw.append(f'"{t.value}"')
+      else:
+        raw.append(t.value)
     if raw:
       flush()
     return body

@@ -3,6 +3,12 @@ this is plain text
 this is plain text
 {{ a }} = {{ a }}
 {%- if b %}{{ b }}{% endif -%}
+{%- if b in [1, 2, 3] %}{{ b }}{% endif -%}
+{%- if b in "xyz" %}{{ b }}{% endif -%}
+{%- if b in (1,2,3) %}{{ b }}{% endif -%}
+{{ b | default("xyz") }}
+{{ b and b }}
+{{ b + b }}
 {% for i in c -%}
   {{ i }}
 {%- endfor %}
