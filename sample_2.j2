@@ -1,0 +1,9 @@
+this is plain text
+{%- preserve %}
+this is plain text
+{{ a }} = {{ a }}
+{%- if b %}{{ b }}{% endif -%}
+{% for i in c -%}
+  {{ i }}
+{%- endfor %}
+{%- endpreserve %}
